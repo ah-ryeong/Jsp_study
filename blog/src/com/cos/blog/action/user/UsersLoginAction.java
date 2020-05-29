@@ -9,11 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cos.blog.action.Action;
 
-public class UsersJoinAction implements Action {
+public class UsersLoginAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dis = request.getRequestDispatcher("user/join.jsp");
+		// 아이디를 남기는 로직 
+		
+		RequestDispatcher dis = request.getRequestDispatcher("user/login.jsp");
 		dis.forward(request, response);
 	}
 }

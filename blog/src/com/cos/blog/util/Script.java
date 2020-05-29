@@ -18,4 +18,32 @@ public class Script {
 			e.printStackTrace();
 		}
 	}
+	
+	public static void href(String msg, String uri, HttpServletResponse response) {
+		try {
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert(' " + msg + " ');");
+			out.println("location.href=' "+ uri +" ';");
+			out.println("</script>");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void href(String uri, HttpServletResponse response) {
+		try {
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			
+			out.println("<script>");
+			out.println("location.href=' "+ uri +" ';");
+			out.println("</script>");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
