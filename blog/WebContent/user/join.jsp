@@ -35,6 +35,7 @@
 	  
   	    <div class="form-group">
 		    <label for="address">Address:</label>
+		    <button type="button" class="btn btn-primary float-right" onclick="goPopup()">주소 검색</button>
 		    <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address" required>
 		    <div class="valid-feedback">Valid.</div>
 		    <div class="invalid-feedback">Please fill out this field.</div>
@@ -43,5 +44,20 @@
 	  <button type="submit" class="btn btn-primary">회원가입완료</button>
 	</form>
 </div>
+
+<script>
+
+function goPopup(){
+	var pop = window.open("/blog/juso/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+}
+
+function jusoCallBack(roadFullAddr){
+		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+		var tfAddress = document.querySelector("#address");
+		tfAddress.value = roadFullAddr;
+//		document.form.roadFullAddr.value = roadFullAddr;
+}
+
+</script>
 
 <%@ include file="../include/footer.jsp" %>
