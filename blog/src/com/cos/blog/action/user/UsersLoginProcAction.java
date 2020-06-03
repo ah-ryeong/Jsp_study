@@ -37,7 +37,15 @@ public class UsersLoginProcAction implements Action {
 			session.setAttribute("principal", user);
 			
 			if (request.getParameter("remember") != null) {
+				// key => Set-Cookie
+				// value => remember = ssar
 				Cookie cookie = new Cookie("remember", user.getUsername());
+				response.addCookie(cookie);
+				
+//				response.setHeader("Set-Cookie", "remember=ssar");
+			} else { // 아이디 기억하기 체크 안 하면 초기화 
+				Cookie cookie = new Cookie("remember", "");
+				cookie.setMaxAge(0);
 				response.addCookie(cookie);
 			}
 			

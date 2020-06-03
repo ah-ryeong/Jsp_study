@@ -13,6 +13,7 @@ import com.cos.blog.action.user.UsersJoinProcAction;
 import com.cos.blog.action.user.UsersLoginAction;
 import com.cos.blog.action.user.UsersLoginProcAction;
 import com.cos.blog.action.user.UsersLogoutAction;
+import com.cos.blog.action.user.UsersUsernameCheckAction;
 
 // http ://localhost:8000/blog/user
 @WebServlet("/user")
@@ -74,6 +75,9 @@ public class UsersController extends HttpServlet {
 		} else if (cmd.equals("logout")) {
 			// 로그아웃
 			return new UsersLogoutAction();
+		} else if (cmd.equals("usernameCheck")) {
+			// ID 중복체크
+			return new UsersUsernameCheckAction();
 		}
 		return null;
 	}
