@@ -18,4 +18,8 @@ public class Board {
 	private String content;
 	private int readCount;
 	private Timestamp createDate;
+	
+//	public String getTitle() { // DB 에 넣을때가 아니라 꺼낼 때,
+//		return title.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+//	}
 }
