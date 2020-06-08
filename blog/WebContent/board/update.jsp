@@ -5,16 +5,19 @@
 <%@include file="../include/authentication.jsp" %>
 
 <div class="container">
-	<form action="/blog/board?cmd=writeProc" method="POST">
+	<form action="/blog/board?cmd=updateProc" method="POST">
 	
+		<input type="hidden" value="${dto.board.id}" name="id" />	
 		<div class="form-group">
 			<label for="title">Title:</label> 
-			<input type="text" class="form-control" placeholder="제목" id="title" name="title">
+			<input value="${dto.board.title}" type="text" class="form-control" placeholder="제목" id="title" name="title">
 		</div>
 		
 		<div class="form-group">
 			<label for="content">Content:</label>
-			<textarea id="summernote" class="form-control" rows="5" id="content" name="content"></textarea>
+			<textarea id="summernote" class="form-control" rows="5" id="content" name="content">
+				${dto.board.content}
+			</textarea>
 		</div>
 		
 		<button type="submit" class="btn btn-primary">글쓰기</button>
