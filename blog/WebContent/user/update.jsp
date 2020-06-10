@@ -4,25 +4,26 @@
 <%@ include file="../include/nav.jsp" %>
 
 <div class="container" >
-	<form action="/blog/user?cmd=updateProc" method="POST" class="was-validated" onSubmit="return validate()">
+	<form action="/blog/user?cmd=updateProc" method="POST" class="was-validated">
+	  
+	  <input type="hidden" name="id" value="${sessionScope.principal.id }" />
 	  <div class="form-group">
 	    <label for="username">Username:</label>
-	    <button type="button" class="btn btn-primary float-right" onclick="usernameCheck()">중복확인</button>
-	    <input value="" type="text" class="form-control" id="username" placeholder="Enter username" name="username" required>
+	    <input value="${sessionScope.principal.username}" type="text" class="form-control" id="username" placeholder="Enter username" name="username" required readonly>
 	    <div class="valid-feedback">Valid.</div>
 	    <div class="invalid-feedback">Please fill out this field.</div>
 	  </div>
 	  
 	  <div class="form-group">
 	    <label for="password">Password:</label>
-	    <input value="" type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
+	    <input type="password" class="form-control" id="password" placeholder="Enter password" name="password" required>
 	    <div class="valid-feedback">Valid.</div>
 	    <div class="invalid-feedback">Please fill out this field.</div>
 	  </div>
 	  
 	    <div class="form-group">
 		    <label for="email">Email:</label>
-		    <input value="" type="email" class="form-control" id="email" placeholder="Enter Email" name="email" required>
+		    <input value="${sessionScope.principal.email}" type="email" class="form-control" id="email" placeholder="Enter Email" name="email" required>
 		    <div class="valid-feedback">Valid.</div>
 		    <div class="invalid-feedback">Please fill out this field.</div>
 	  </div>
@@ -30,14 +31,16 @@
   	    <div class="form-group">
 		    <label for="address">Address:</label>
 		    <button type="button" class="btn btn-primary float-right" onclick="goPopup()">주소 검색</button>
-		    <input value="" type="text" class="form-control" id="address" placeholder="Enter Address" name="address" required readonly>
+		    
+		    <input value="${sessionScope.principal.address }" type="text" class="form-control" id="address" placeholder="Enter Address" name="address" required readonly>
 		    <div class="valid-feedback">Valid.</div>
 		    <div class="invalid-feedback">Please fill out this field.</div>
 	  </div>
 	  
-	  <button type="submit" class="btn btn-primary">회원가입완료</button>
+	  <button type="submit" class="btn btn-primary">회원정보 수정</button>
 	</form>
 </div>
 
-<script src="/blog/js/join.js"></script>
+<script src="${path}/js/juso.js"></script>
+<script src="/blog/js/update.js"></script>
 <%@ include file="../include/footer.jsp" %>

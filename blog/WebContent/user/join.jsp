@@ -39,5 +39,6 @@
 	</form>
 </div>
 
+<script src="/blog/js/juso.js"></script>
 <script src="/blog/js/join.js"></script>
 <%@ include file="../include/footer.jsp" %>

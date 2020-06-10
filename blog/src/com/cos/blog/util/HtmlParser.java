@@ -5,7 +5,36 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.nhncorp.lucy.security.xss.markup.Attribute;
+
 public class HtmlParser {
+public static String getContentYoutube(String content) {
+		
+		Document doc = Jsoup.parse(content);
+		Elements aTags = doc.select("a");
+		
+		for (Element aTag : aTags) {
+			String href = aTag.attr("href");
+			String youtubeId = null;
+			
+			if (href != null && aTag.attr("target").equals("_blank")) {
+				if (href.contains("http://youtu.be")) {
+					String[] hrefArr = href.split("/");
+					youtubeId = hrefArr[3];
+				} else if (href.contains("https://www.youtube.com")) {
+					String[] hrefArr = href.split("=");
+					youtubeId = hrefArr[1];
+				}
+				
+				System.out.println("JSOUP 파싱 : Youtube : " + youtubeId);
+				String video = "<br/><iframe src='http://www.youtube.com/embed/\"+youtubeId+\"' width='400px' height='400px' frameborder='0' allowfullscreen></iframe>";
+				System.out.println("video : " + video);
+				aTag.after(video);
+			}
+		}
+		return doc.toString();
+	}
+	
 public static String getContentPreview(String content) {
 		
 		Document doc = Jsoup.parse(content);

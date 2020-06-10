@@ -16,10 +16,12 @@ public class BoardHomeAction implements Action{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int page = Integer.parseInt(request.getParameter("page"));
+		
 		// 1. DB연결해서 Board 목록 다 불러와서
 		BoardRepository boardRepository = 
 				BoardRepository.getInstance();
-		List<Board> boards = boardRepository.findAll();
+		List<Board> boards = boardRepository.findAll(page);
 
 		// 본문 짧게 가공하기
 		for (Board board : boards) {
@@ -28,6 +30,14 @@ public class BoardHomeAction implements Action{
 		}
 	
 		request.setAttribute("boards", boards);
+		
+		// 마지막 페이지 확인 로직
+		int count = boardRepository.count();
+		int lastPage = (count-1)/3;
+		double currentPercent = (double)(page)/(lastPage)*100;
+		
+		request.setAttribute("lastPage", lastPage);
+		request.setAttribute("currentPercent", currentPercent);
 		
 		RequestDispatcher dis = 
 				request.getRequestDispatcher("home.jsp");

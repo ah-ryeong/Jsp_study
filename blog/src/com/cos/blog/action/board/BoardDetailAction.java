@@ -11,6 +11,7 @@ import com.cos.blog.action.Action;
 import com.cos.blog.dto.DetailResponseDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.repository.BoardRepository;
+import com.cos.blog.util.HtmlParser;
 import com.cos.blog.util.Script;
 
 public class BoardDetailAction implements Action{
@@ -26,7 +27,20 @@ public class BoardDetailAction implements Action{
 		int id = Integer.parseInt(request.getParameter("id"));
 		BoardRepository boardRepository = BoardRepository.getInstance();
 		
+		// 조회수 증가가 상세보기가 되기 전에 실행되는 것이 좋다,
+		int result = boardRepository.updateReadCount(id);
+		
+		if (result != 1) {
+			Script.back("서버오류!", response);
+			return;
+		}
+		
 		DetailResponseDto dto = boardRepository.findById(id);
+		
+		// 유투브 파싱하기
+		String content = dto.getBoard().getContent();
+		content = HtmlParser.getContentYoutube(content);
+		dto.getBoard().setContent(content);
 		
 		if (dto != null) { // 데이터가 있음
 			request.setAttribute("dto", dto);
