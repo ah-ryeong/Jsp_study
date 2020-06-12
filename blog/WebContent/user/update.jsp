@@ -4,9 +4,9 @@
 <%@ include file="../include/nav.jsp" %>
 
 <div class="container" >
-	<form action="/blog/user?cmd=updateProc" method="POST" class="was-validated">
+	<form action="/blog/user?cmd=updateProc" method="POST">
 	  
-	  <input type="hidden" name="id" value="${sessionScope.principal.id }" />
+	  <input type="hidden" value="${sessionScope.principal.id }" name="id"  />
 	  <div class="form-group">
 	    <label for="username">Username:</label>
 	    <input value="${sessionScope.principal.username}" type="text" class="form-control" id="username" placeholder="Enter username" name="username" required readonly>

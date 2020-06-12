@@ -1,6 +1,7 @@
 package com.cos.blog.action.board;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,9 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cos.blog.action.Action;
+import com.cos.blog.dto.BoardResponseDto;
 import com.cos.blog.dto.DetailResponseDto;
+import com.cos.blog.dto.ReplyResponseDto;
 import com.cos.blog.model.Board;
 import com.cos.blog.repository.BoardRepository;
+import com.cos.blog.repository.ReplyRepository;
 import com.cos.blog.util.HtmlParser;
 import com.cos.blog.util.Script;
 
@@ -24,26 +28,35 @@ public class BoardDetailAction implements Action{
 			return;
 		}
 		
-		int id = Integer.parseInt(request.getParameter("id"));
+		int boardId = Integer.parseInt(request.getParameter("id"));
 		BoardRepository boardRepository = BoardRepository.getInstance();
+		ReplyRepository replyRepository = ReplyRepository.getInstance();
 		
 		// 조회수 증가가 상세보기가 되기 전에 실행되는 것이 좋다,
-		int result = boardRepository.updateReadCount(id);
+		int result = boardRepository.updateReadCount(boardId);
 		
 		if (result != 1) {
 			Script.back("서버오류!", response);
 			return;
 		}
 		
-		DetailResponseDto dto = boardRepository.findById(id);
+		// Board, User (해당 게시물의 글과 작성자)
+		BoardResponseDto boardDto = boardRepository.findById(boardId);
 		
-		// 유투브 파싱하기
-		String content = dto.getBoard().getContent();
-		content = HtmlParser.getContentYoutube(content);
-		dto.getBoard().setContent(content);
+		// Reply, User (해당 게시물의 댓글과 댓글의 작성자) -> 복수로 담아줘야함
+		List<ReplyResponseDto> replyDtos = replyRepository.findAll(boardId);
+		DetailResponseDto detailDto = DetailResponseDto.builder()
+				.boardDto(boardDto)
+				.replysDtos(replyDtos)
+				.build();
 		
-		if (dto != null) { // 데이터가 있음
-			request.setAttribute("dto", dto);
+		if (detailDto != null) { // 데이터가 있음
+			// 유투브 파싱하기
+			String content = boardDto.getBoard().getContent();
+			content = HtmlParser.getContentYoutube(content);
+			boardDto.getBoard().setContent(content);
+			
+			request.setAttribute("detailDto", detailDto);
 			RequestDispatcher dis = request.getRequestDispatcher("board/detail.jsp");
 			dis.forward(request, response);
 			
