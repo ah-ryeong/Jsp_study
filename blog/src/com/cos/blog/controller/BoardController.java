@@ -22,7 +22,7 @@ import com.cos.blog.action.board.BoardWriteProcAction;
 @WebServlet("/board")
 public class BoardController extends HttpServlet {
 	
-	private final static String TAG = "UsersController : ";
+	private final static String TAG = "BoardController : ";
 	private static final long serialVersionUID = 1L;
 
 	public BoardController() {
