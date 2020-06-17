@@ -43,7 +43,7 @@
 					</thead>
 					<tbody id="vollyball__name">
 						<tr>
-							<td onclick="goDetail('${vollyball.name}','${vollyball.team}')" style="cursor: pointer;">${vollyball.name}</td>
+<%-- 							<td onclick="goDetail('${vollyball.name}','${vollyball.team}')" style="cursor: pointer;">${vollyball.name}</td> --%>
 						</tr>
 					</tbody>
 				</table>

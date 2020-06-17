@@ -56,7 +56,7 @@ public class VollyballRepository {
 		
 		public List<Vollyball> goName(String name) {
 			StringBuilder sb = new StringBuilder();
-			sb.append("SELECT name ");
+			sb.append("SELECT name, team ");
 			sb.append("FROM vollyball ");
 			sb.append("WHERE team=? ");
 			
@@ -75,6 +75,7 @@ public class VollyballRepository {
 				while (rs.next()) {
 					Vollyball vollyball = Vollyball.builder()
 							.name(rs.getString(1))
+							.team(rs.getString(2))
 							.build();
 					names.add(vollyball);
 				}
@@ -91,7 +92,7 @@ public class VollyballRepository {
 			StringBuilder sb = new StringBuilder();
 			sb.append("SELECT id, name, position ");
 			sb.append("FROM vollyball ");
-			sb.append("WHERE name LIKE=? AND team=?");
+			sb.append("WHERE name LIKE ? AND team=? ");
 			
 			final String SQL = sb.toString();
 			
@@ -116,7 +117,7 @@ public class VollyballRepository {
 				}
 				return details;	
 			} catch (Exception e) {
-				System.out.println(TAG + "teamList() : " + e.getMessage());
+				System.out.println(TAG + "goDetail() : " + e.getMessage());
 			} finally {
 				DBConn.close(conn, pstmt);
 			}

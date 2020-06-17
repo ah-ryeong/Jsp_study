@@ -23,7 +23,10 @@ public class GoDetailAction implements Action {
 		// 배열리스트에 저장
 		String name = request.getParameter("name");
 		String team = request.getParameter("team");
-		List<Vollyball> details = vollyballRepository.goDetail(team, name);
+		
+		System.out.println(name+"  1  "+ team);
+		
+		List<Vollyball> details = vollyballRepository.goDetail(name, team);
 		
 		// 배열 데이터화 (GSON)
 		Gson gson = new Gson();

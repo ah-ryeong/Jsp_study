@@ -9,8 +9,8 @@
 		for(var vollyball of names) {
 			var string = 
 				"<tr>\r\n" + 
-				"			        <td>"+vollyball.name+"</td>\r\n" + 
-				"			      </tr>";
+				"							<td onclick=\"goDetail('"+vollyball.name+"','"+vollyball.team+"')\" style=\"cursor: pointer;\">"+vollyball.name+"</td>\r\n" + 
+				"						</tr>"
 		
 			$("#vollyball__name").append(string);
 		}
@@ -22,9 +22,10 @@
  function goDetail(name, team) {
 		$.ajax({
 			type: 'get',
-			url: '/vollyball/home?cmd=goDetail&name='+name +'team='+team,
+			url: '/vollyball/home?cmd=goDetail&name='+name+'&team='+team,
 			dataType: 'json'
 		}).done(function(details) {
+			console.log(details);
 		
 			$("#vollyball__detail").empty();
 			for(var vollyball of details) {
